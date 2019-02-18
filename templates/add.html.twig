@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h2>Ajout d'un nouveau livre</h2>
+    <h2>Link a new book</h2>
     {{ form_start(form, {
         'attr': {
             'novalidate': 'novalidate',
@@ -13,7 +13,7 @@
         {{ form_row(form.title) }}
         {{ form_row(form.editor) }}
 
-        <ul class="tags" data-prototype="{{ form_row(form.keywords.vars.prototype, {'label': 'Mot-clé'})|e('html_attr') }}">
+        <ul class="tags" data-prototype="{{ form_widget(form.keywords.vars.prototype)|e('html_attr') }}">
             {{ form_label(form.keywords, 'Keywords') }}
             {% for keyword in form.keywords %}
                <li>{{ form_row(keyword.name) }}</li>
