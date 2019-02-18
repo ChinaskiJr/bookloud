@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2>Ajout d'un nouveau livre</h2>
+    {{ form_start(form, {
+        'attr': {
+            'novalidate': 'novalidate',
+            'class': 'col-lg-5'
+            }
+        })
+    }}
+        {{ form_row(form.isbn) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.editor) }}
+
+        <ul class="tags" data-prototype="{{ form_row(form.keywords.vars.prototype, {'label': 'Mot-clé'})|e('html_attr') }}">
+            {{ form_label(form.keywords, 'Keywords') }}
+            {% for keyword in form.keywords %}
+               <li>{{ form_row(keyword.name) }}</li>
+            {% endfor %}
+        </ul>
+    {{ form_end(form) }}
+{% endblock %}
