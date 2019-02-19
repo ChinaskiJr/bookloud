@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h3><a href="/add" class="links">Link a book</a></h3>
-    <h2>Existing booklouds : </h2>
-    {% for keyword in keywords %}
-        <p>{{ keyword.name }}</p>
-    {% endfor %}
-    <h2>Books linked :</h2>
-    {% for book in books %}
-        <p>{{ book.title }}</p>
-    {% endfor %}
+    <h2><a href="/add" class="links">Link a book</a></h2>
+    {% if books is not empty %}
+        <h2>Existing booklouds : </h2>
+        {% for keyword in keywords %}
+            <p><a href="/bookloud/{{ keyword.id }}">{{ keyword.name }}</a></p>
+        {% endfor %}
+        <h2>Books linked :</h2>
+        {% for book in books %}
+            <p>{{ book.editor }} - {{ book.title }} - {{ book.isbn }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No books or booklouds to show for the moment...</p>
+    {% endif %}
 {% endblock %}
