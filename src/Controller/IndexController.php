@@ -23,7 +23,14 @@ class IndexController extends AbstractController {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function home() {
-        return $this->render('home.html.twig');
+        $repository = $this->getDoctrine()->getRepository(Keyword::class);
+        $keywords = $repository->findAll();
+        $repository = $this->getDoctrine()->getRepository(Book::class);
+        $books = $repository->findAll();
+        return $this->render('home.html.twig', array(
+            'keywords' => $keywords,
+            'books' => $books,
+        ));
     }
 
     /**
@@ -40,14 +47,18 @@ class IndexController extends AbstractController {
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
+        $returnRender = $this->render('add.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($book);
             $em->flush();
+
+            $returnRender = $this->home();
         }
 
-        return $this->render('add.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $returnRender;
     }
 }

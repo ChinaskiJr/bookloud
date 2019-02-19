@@ -2,5 +2,12 @@
 
 {% block content %}
     <h3><a href="/add" class="links">Link a book</a></h3>
-    <h2>Booklouds</h2>
+    <h2>Existing booklouds : </h2>
+    {% for keyword in keywords %}
+        <p>{{ keyword.name }}</p>
+    {% endfor %}
+    <h2>Books linked :</h2>
+    {% for book in books %}
+        <p>{{ book.title }}</p>
+    {% endfor %}
 {% endblock %}
