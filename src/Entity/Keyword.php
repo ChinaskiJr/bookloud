@@ -8,6 +8,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +31,7 @@ class Keyword {
     private $name;
     /**
      * @var array
+     * @ORM\ManyToMany(targetEntity="App\Entity\Book", inversedBy="keywords")
      */
     private $books;
 
@@ -37,7 +39,7 @@ class Keyword {
      * Keyword constructor.
      * @param int $id
      * @param string $name
-     * @param $books
+     * @param null|array $books
      */
     public function __construct($id = null, $name = null, $books = null) {
         $this->setId($id);
@@ -74,16 +76,16 @@ class Keyword {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getBooks() {
         return $this->books;
     }
 
     /**
-     * @param mixed $books
+     * @param null|array $books
      */
     public function setBooks($books): void {
-        $this->books = $books;
+        $this->books =  is_null($books) ? new ArrayCollection() : new ArrayCollection($books);
     }
 }

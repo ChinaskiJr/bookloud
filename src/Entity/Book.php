@@ -47,6 +47,8 @@ class Book {
     private $editor;
     /**
      * @var mixed
+     * @ORM\ManyToMany(targetEntity="App\Entity\Keyword", mappedBy="books")
+     * @ORM\JoinTable(name="bookloud_keyword"))
      */
     private $keywords;
 
@@ -56,7 +58,7 @@ class Book {
      * @param int $isbn
      * @param string $title
      * @param string $editor
-     * @param mixed $keywords
+     * @param null|array $keywords
      */
     public function __construct($id = null, $isbn = null, $title = null, $editor = null, $keywords = null) {
         $this->setId($id);
@@ -119,17 +121,17 @@ class Book {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getKeywords(){
         return $this->keywords;
     }
 
     /**
-     * @param mixed $keywords
+     * @param null|array $keywords
      */
     public function setKeywords($keywords) {
-        $this->keywords =   is_null($keywords) ? new ArrayCollection() : new ArrayCollection($keywords);
+        $this->keywords =  is_null($keywords) ? new ArrayCollection() : new ArrayCollection($keywords);
     }
 
 
