@@ -35,30 +35,37 @@ class IndexController extends AbstractController {
 
     /**
      * Add a new book into database
-     * @Route("/add", name="add")
+     * @Route("/add", name="book_add")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function add(Request $request) {
         $book = new Book();
-        // At least one empty textarea will be display for keywords
-        $book->setKeywords([new Keyword()]);
+
+        // As the keywords form are made with JS, we have to count them after the request
+        if ($request->isMethod('POST')) {
+            $nbKeywords = $request->request->get('book')["keywords"];
+            for ($i = 0 ; $i <= count($nbKeywords) ; $i++) {
+                $book->addKeyword(new Keyword());
+            }
+        }
 
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
-        $returnRender = $this->render('add.html.twig', array(
-            'form' => $form->createView(),
-        ));
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
             $em->persist($book);
             $em->flush();
-
-            $returnRender = $this->home();
+            $returnRender = $this->redirectToRoute('home');
+        } else {
+            $returnRender = $this->render('add.html.twig', array(
+                'form' => $form->createView(),
+            ));
         }
 
         return $returnRender;
     }
+
 }

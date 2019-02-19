@@ -46,26 +46,18 @@ class Book {
      */
     private $editor;
     /**
-     * @var mixed
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Keyword", mappedBy="books", cascade={"persist"})
-     * @ORM\JoinTable(name="bookloud_keyword"))
+     * @ORM\JoinTable(name="bookloud_book_keyword"))
      */
     private $keywords;
 
     /**
      * Book constructor.
-     * @param int $id
-     * @param int $isbn
-     * @param string $title
-     * @param string $editor
-     * @param null|array $keywords
      */
-    public function __construct($id = null, $isbn = null, $title = null, $editor = null, $keywords = null) {
-        $this->setId($id);
-        $this->setIsbn($isbn);
-        $this->setTitle($title);
-        $this->setEditor($editor);
-        $this->setKeywords($keywords);
+    public function __construct()
+    {
+        $this->keywords = new ArrayCollection();
     }
 
     /**
@@ -121,18 +113,37 @@ class Book {
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
     public function getKeywords(){
         return $this->keywords;
     }
 
     /**
-     * @param null|array $keywords
+     * @param Keyword $keyword
+     * @return Book
      */
-    public function setKeywords($keywords) {
-        $this->keywords =  is_null($keywords) ? new ArrayCollection() : new ArrayCollection($keywords);
+    public function addKeyword(Keyword $keyword): self
+    {
+        if (!$this->keywords->contains($keyword)) {
+            $this->keywords[] = $keyword;
+            $keyword->addBook($this);
+        }
+
+        return $this;
     }
 
+    /**
+     * @param Keyword $keyword
+     * @return Book
+     */
+    public function removeKeyword(Keyword $keyword): self
+    {
+        if ($this->keywords->contains($keyword)) {
+            $this->keywords->removeElement($keyword);
+            $keyword->removeBook($this);
+        }
 
+        return $this;
+    }
 }

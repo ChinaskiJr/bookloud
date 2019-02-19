@@ -30,22 +30,20 @@ class Keyword {
      */
     private $name;
     /**
-     * @var array
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Book", inversedBy="keywords")
+     * @ORM\JoinTable(name="bookloud_book_keyword"))
      */
     private $books;
 
     /**
      * Keyword constructor.
-     * @param int $id
-     * @param string $name
-     * @param null|array $books
      */
-    public function __construct($id = null, $name = null, $books = null) {
-        $this->setId($id);
-        $this->setName($name);
-        $this->setBooks($books);
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
     }
+
 
     /**
      * @return int
@@ -76,16 +74,35 @@ class Keyword {
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
     public function getBooks() {
         return $this->books;
     }
 
     /**
-     * @param null|array $books
+     * @param Book $book
+     * @return Keyword
      */
-    public function setBooks($books): void {
-        $this->books =  is_null($books) ? new ArrayCollection() : new ArrayCollection($books);
+    public function addBook(Book $book): self
+    {
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Book $book
+     * @return Keyword
+     */
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->contains($book)) {
+            $this->books->removeElement($book);
+        }
+
+        return $this;
     }
 }
