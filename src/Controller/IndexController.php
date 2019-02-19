@@ -41,7 +41,9 @@ class IndexController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($book);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($book);
+            $em->flush();
         }
 
         return $this->render('add.html.twig', array(

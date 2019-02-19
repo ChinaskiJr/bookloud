@@ -47,7 +47,7 @@ class Book {
     private $editor;
     /**
      * @var mixed
-     * @ORM\ManyToMany(targetEntity="App\Entity\Keyword", mappedBy="books")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Keyword", mappedBy="books", cascade={"persist"})
      * @ORM\JoinTable(name="bookloud_keyword"))
      */
     private $keywords;
