@@ -68,4 +68,17 @@ class IndexController extends AbstractController {
         return $returnRender;
     }
 
+    /**
+     * @Route("/bookloud/{idKeyword}", name="show_bookloud")
+     * @param int $idKeyword
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showBooksFromBookloud($idKeyword) {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository(Keyword::class);
+        $keyword = $repository->find($idKeyword);
+        return $this->render('bookloud.html.twig', array(
+            'bookloud' => $keyword,
+        ));
+    }
 }

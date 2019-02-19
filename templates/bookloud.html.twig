@@ -4,7 +4,7 @@
     <h2>Bookloud : {{ bookloud.name }}</h2>
     <ul>
         {% for book in bookloud.books %}
-            <li>{{ book.title }}</li>
+            <li>{{ book.editor }} - {{ book.title }} - {{ book.isbn }}</li>
         {% endfor %}
     </ul>
 {% endblock %}
