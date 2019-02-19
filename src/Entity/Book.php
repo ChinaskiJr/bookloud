@@ -10,10 +10,23 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * Class Book
+ * @ORM\Entity()
+ * @ORM\Table(name="bookloud_book")
+ */
 class Book {
     /**
      * @var integer
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=13, unique=true)
      * @Assert\Regex(
      *     pattern="/\d{13}/",
      *     message="L'ISBN c'est 13 chiffres."
@@ -22,11 +35,13 @@ class Book {
     private $isbn;
     /**
      * @var string
+     * @ORM\Column(type="string")
      * @Assert\NotBlank(message = "Le titre, c'est obligatoire.")
      */
     private $title;
     /**
      * @var string
+     * @ORM\Column(type="string")
      * @Assert\NotBlank(message = "L'éditeur c'est obligatoire")
      */
     private $editor;
@@ -37,18 +52,30 @@ class Book {
 
     /**
      * Book constructor.
+     * @param int $id
      * @param int $isbn
      * @param string $title
      * @param string $editor
      * @param mixed $keywords
      */
-    public function __construct($isbn = null, $title = null, $editor = null, $keywords = null) {
+    public function __construct($id = null, $isbn = null, $title = null, $editor = null, $keywords = null) {
+        $this->setId($id);
         $this->setIsbn($isbn);
         $this->setTitle($title);
         $this->setEditor($editor);
         $this->setKeywords($keywords);
     }
 
+    /**
+     * @return int
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
     /**
      * @return int
      */
