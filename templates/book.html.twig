@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2>Book : {{ book.title }}</h2>
+    <ul>
+        {% for bookloud in book.keywords %}
+            <li>{{ bookloud.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
