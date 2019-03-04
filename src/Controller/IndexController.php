@@ -98,4 +98,6 @@ class IndexController extends AbstractController {
             'book' => $book,
         ));
     }
+
+    //TODO : Ajouter les suppressions
 }

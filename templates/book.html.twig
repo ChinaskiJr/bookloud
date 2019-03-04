@@ -4,7 +4,7 @@
     <h2>Book : {{ book.title }}</h2>
     <ul>
         {% for keyword in book.keywords %}
-            <li>{{ keyword.name }}</li>
+            <li><a href="/bookloud/{{ keyword.id }}" class="links">{{ keyword.name }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

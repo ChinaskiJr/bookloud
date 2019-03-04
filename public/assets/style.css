@@ -21,7 +21,10 @@
     text-align: center;
     padding: 30px;
 }
-
+.p-footer {
+    margin-top: 50px;
+    text-align: center;
+}
 /* All about grids */
 .flex-home {
     display: grid;
