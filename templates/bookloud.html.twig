@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h2>Bookloud : {{ keyword.name }}</h2>
-    <ul>
-        {% for book in keyword.books %}
-            <li><a href="/book/{{ book.id }}" class=links>{{ book.editor }} - {{ book.title }} - {{ book.isbn }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="block-showBookloud">
+        <h2>Bookloud : {{ keyword.name }}</h2>
+        <ul>
+            {% for book in keyword.books %}
+                <li><a href="/book/{{ book.id }}" class=links>{{ book.editor }} - {{ book.title }} - {{ book.isbn }}</a></li>
+            {% endfor %}
+        </ul>
+        <button type="button" class="btn btn-danger"><a href="/delete/bookloud/{{ keyword.id }}" class="links">Delete this keyword</a></button>
+    </div>
 {% endblock %}

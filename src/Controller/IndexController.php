@@ -99,5 +99,37 @@ class IndexController extends AbstractController {
         ));
     }
 
-    //TODO : Ajouter les suppressions
+    /**
+     * @param Book $book
+     * @Route ("/delete/book/{id}", name="delete_book", requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteBook(Book $book) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($book);
+        // We don't to left any orphans behind us
+        $bookKeywords = $book->getKeywords();
+        foreach ($bookKeywords as $bookKeyword) {
+            if (count($bookKeyword->getBooks()) <= 1) {
+                $em->remove($bookKeyword);
+            }
+        }
+
+        $em->flush();
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @param Keyword $keyword
+     * @Route("/delete/bookloud/{id}", name="delete_keyword",requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteKeyword(Keyword $keyword) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($keyword);
+        $em->flush();
+        return $this->redirectToRoute('home');
+    }
+
+    //TODO : Ajouter les éditions
 }

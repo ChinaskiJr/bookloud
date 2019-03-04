@@ -25,6 +25,12 @@
     margin-top: 50px;
     text-align: center;
 }
+.block-showBook {
+    text-align: center;
+}
+.block-showBookloud {
+    text-align: center;
+}
 /* All about grids */
 .flex-home {
     display: grid;
