@@ -8,6 +8,7 @@
                 <li><a href="/bookloud/{{ keyword.id }}" class="links">{{ keyword.name }}</a></li>
             {% endfor %}
         </ul>
+        <button type="button" class="btn btn-info"><a href="/edit/book/{{ book.id }}" class="links">Edit this book</a></button>
         <button type="button" class="btn btn-danger"><a href="/delete/book/{{ book.id }}" class="links">Delete this book</a></button>
     </div>
 {% endblock %}

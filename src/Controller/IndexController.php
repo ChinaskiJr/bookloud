@@ -35,6 +35,7 @@ class IndexController extends AbstractController {
 
     /**
      * Add a new book into database
+     * Same as the editBook method, it's just like we're editing an empty book...
      * @Route("/add", name="book_add")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -42,6 +43,38 @@ class IndexController extends AbstractController {
     public function add(Request $request) {
         $book = new Book();
 
+         return self::editBook($request, $book);
+    }
+
+    /**
+     * @Route("/bookloud/{id}", name="show_bookloud")
+     * @param Keyword $keyword
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showBookloud(Keyword $keyword) {
+        return $this->render('bookloud.html.twig', array(
+            'keyword' => $keyword,
+        ));
+    }
+
+    /**
+     * @param Book $book
+     * @Route ("/book/{id}", name="show_book", requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showBook(Book $book) {
+        return $this->render('book.html.twig', array(
+            'book' => $book,
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param Book $book
+     * @Route("/edit/book/{id}", name="edit_book",requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editBook(Request $request, Book $book) {
         // As the keywords form are made with JS, we have to count them after the request
         if ($request->isMethod('POST')) {
             $nbKeywords = $request->request->get('book')["keywords"];
@@ -75,28 +108,6 @@ class IndexController extends AbstractController {
         }
 
         return $returnRender;
-    }
-
-    /**
-     * @Route("/bookloud/{id}", name="show_bookloud")
-     * @param Keyword $keyword
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function showBookloud(Keyword $keyword) {
-        return $this->render('bookloud.html.twig', array(
-            'keyword' => $keyword,
-        ));
-    }
-
-    /**
-     * @param Book $book
-     * @Route ("/book/{id}", name="show_book", requirements={"id":"\d+"})
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function showBook(Book $book) {
-        return $this->render('book.html.twig', array(
-            'book' => $book,
-        ));
     }
 
     /**
