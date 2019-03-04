@@ -2,8 +2,8 @@
 
 {% block content %}
     <div class="block-showBook">
-        <h2>Book : {{ book.title }}</h2>
-        <ul>
+        <h2 class="h2-add">{{ book.title }}</h2>
+        <ul class="ul-add">
             {% for keyword in book.keywords %}
                 <li><a href="/bookloud/{{ keyword.id }}" class="links">{{ keyword.name }}</a></li>
             {% endfor %}

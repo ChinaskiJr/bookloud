@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h2 class="h2-home"><a href="/add" class="links">-> New book <-</a></h2>
+    <h2 class="h2-home-newBook"><a href="/add" class="links">->&nbsp;New&nbsp;book&nbsp;<-</a></h2>
     {% if books is not empty %}
         <div class="flex-home">
             <div class="block-home-booklouds">
-                <h2 class="h2-home">Booklouds : </h2>
+                <h2 class="h2-home-titles">Booklouds</h2>
                 <div class="grid-booklouds">
                     {% for keyword in keywords %}
                         <p><a href="/bookloud/{{ keyword.id }}" class="links">{{ keyword.name }}</a></p>
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="block-home-books">
-                <h2 class="h2-home">Books :</h2>
+                <h2 class="h2-home-titles">Books</h2>
                 <div class="grid-books">
                     {% for book in books %}
                         <a href="/book/{{ book.id }}" class=links>{{ book.title }} ({{ book.editor }})</a>

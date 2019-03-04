@@ -141,6 +141,4 @@ class IndexController extends AbstractController {
         $em->flush();
         return $this->redirectToRoute('home');
     }
-
-    //TODO : Ajouter les éditions
 }
