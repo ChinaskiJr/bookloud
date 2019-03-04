@@ -54,8 +54,17 @@ class IndexController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            // Check for existing keywords
+            $repository = $this->getDoctrine()->getRepository(Keyword::class);
 
+            foreach($book->getKeywords() as $newKeyword) {
+                $databaseKeyword = $repository->findOneBy(array('name' => $newKeyword->getName()));
+                if ($databaseKeyword) {
+                    $book->removeKeyword($newKeyword);
+                    $book->addKeyword($databaseKeyword);
+                }
+            }
+            $em = $this->getDoctrine()->getManager();
             $em->persist($book);
             $em->flush();
             $returnRender = $this->redirectToRoute('home');

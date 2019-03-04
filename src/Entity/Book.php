@@ -9,12 +9,15 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Book
  * @ORM\Entity()
  * @ORM\Table(name="bookloud_book")
+ * @UniqueEntity("isbn", message="This book is already in the database.")
+ * @UniqueEntity("title", message="This book is already in the database.")
  */
 class Book {
     /**
