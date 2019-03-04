@@ -52,6 +52,7 @@ class Book {
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Keyword", mappedBy="books", cascade={"persist"})
      * @ORM\JoinTable(name="bookloud_book_keyword"))
+     * @Assert\Valid
      */
     private $keywords;
 

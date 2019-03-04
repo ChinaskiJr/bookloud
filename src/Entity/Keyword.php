@@ -10,6 +10,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Keyword
@@ -27,6 +28,7 @@ class Keyword {
     /**
      * @var string
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank(message="Un mot-clé vide donne un Bookloud vide de sens")
      */
     private $name;
     /**

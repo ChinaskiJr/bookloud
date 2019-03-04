@@ -25,6 +25,8 @@ jQuery(document).ready(function() {
         addTagForm($collectionHolder, $newLinkLi);
     });
 
+    $addTagButton.click();
+
     function addTagForm($collectionHolder, $newLinkLi) {
         // Get the data-prototype explained earlier
         var prototype = $collectionHolder.data('prototype');
