@@ -9,7 +9,7 @@
         {% endfor %}
         <h2>Books linked :</h2>
         {% for book in books %}
-            <p>{{ book.editor }} - {{ book.title }} - {{ book.isbn }}</p>
+            <p><a href="/book/{{ book.id }}">{{ book.title }}</a> - {{ book.editor }} - {{ book.isbn }}</p>
         {% endfor %}
     {% else %}
         <p>No books or booklouds to show for the moment...</p>
