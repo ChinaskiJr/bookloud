@@ -3,8 +3,8 @@
 {% block content %}
     <h2>Book : {{ book.title }}</h2>
     <ul>
-        {% for bookloud in book.keywords %}
-            <li>{{ bookloud.name }}</li>
+        {% for keyword in book.keywords %}
+            <li>{{ keyword.name }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

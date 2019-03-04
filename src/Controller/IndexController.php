@@ -82,18 +82,18 @@ class IndexController extends AbstractController {
      * @param Keyword $keyword
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showBooksFromBookloud(Keyword $keyword) {
+    public function showBookloud(Keyword $keyword) {
         return $this->render('bookloud.html.twig', array(
-            'bookloud' => $keyword,
+            'keyword' => $keyword,
         ));
     }
 
     /**
      * @param Book $book
-     * @Route ("/book/{id}", name="testParamConvert", requirements={"id":"\d+"})
+     * @Route ("/book/{id}", name="show_book", requirements={"id":"\d+"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewBook(Book $book) {
+    public function showBook(Book $book) {
         return $this->render('book.html.twig', array(
             'book' => $book,
         ));
