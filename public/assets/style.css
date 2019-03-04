@@ -1,9 +1,47 @@
+/* About everything*/
 .body {
     font-family: Hack, sans-serif;
     color: white;
     background-color: black;
 }
+
+/* Few customisations */
 .links {
     color: white;
-    text-decoration: underline;
+}
+.h1-header {
+    text-align: center;
+    display: block;
+}
+.h2-home {
+    padding: 15px;
+    text-align: center;
+}
+.h2-add {
+    text-align: center;
+    padding: 30px;
+}
+
+/* All about grids */
+.flex-home {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+}
+.grid-books {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+    grid-gap: 15px;
+    text-align: center;
+}
+.grid-booklouds {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+    grid-gap: 25px;
+    text-align: center;
+}
+/* Media queries */
+@media screen and (min-width: 600px){
+    .block-home-booklouds {
+        border-right: white solid 1px;
+    }
 }
