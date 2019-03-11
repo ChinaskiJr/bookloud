@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="block-home-booklouds">
+        <h2 class="h2-home-titles">Epochs</h2>
+        <div class="grid-booklouds">
+            {% for epoch in epochs %}
+                <p><a href="/epochs/{{ epoch.id }}" class="links">{{ epoch.epoch }}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

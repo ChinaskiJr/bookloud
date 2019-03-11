@@ -2,6 +2,16 @@
 
 {% block content %}
     <div class="block-add-form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-3 text-center ">
+                    <a class="links" href="/add-epoch">New Epoch</a>
+                </div>
+                <div class="col-3 text-center ml-auto">
+                    <a class="links" href="/add-geographical-area">New Geographical Area</a>
+                </div>
+            </div>
+        </div>
         <h2 class="h2-add">Link a new book</h2>
         {{ form_start(form, {
             'attr': {

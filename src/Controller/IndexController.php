@@ -175,6 +175,31 @@ class IndexController extends AbstractController {
 
         return $returnRender;
     }
+
+    /**
+     * @Route("/epochs", name="epoch_show")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showEpoch() {
+        $repository = $this->getDoctrine()->getRepository(Epoch::class);
+        $epochs = $repository->findAll();
+        return $this->render('listEpochs.html.twig', [
+            'epochs' => $epochs
+        ]);
+    }
+
+    /**
+     * @Route("/regions", name="region_show")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showRegion() {
+        $repository = $this->getDoctrine()->getRepository(GeographicalArea::class);
+        $regions = $repository->findAll();
+        return $this->render('listRegions.html.twig', [
+            'regions' => $regions
+        ]);
+    }
+
     /**
      * Add a new Geographical Area into database
      * @Route("/add-geographical-area", name="geographical_add")
