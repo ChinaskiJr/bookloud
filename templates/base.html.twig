@@ -18,7 +18,9 @@
             {% block nav %}
                 {% include 'nav.html.twig' %}
             {% endblock %}
-            {% block content %}{% endblock %}
+            <div class="col-8 mx-auto">
+                {% block content %}{% endblock %}
+            </div>
         {% endblock %}
         {% block footer %}
             {% include 'footer.html.twig' %}

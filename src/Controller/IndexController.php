@@ -74,6 +74,18 @@ class IndexController extends AbstractController {
     }
 
     /**
+     * @Route("/books", name="show_books")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showBooks() {
+        $repository = $this->getDoctrine()->getRepository(Book::class);
+        $books = $repository->findAll();
+        return $this->render('listBooks.html.twig', [
+            'books' => $books
+        ]);
+    }
+
+    /**
      * @param Request $request
      * @param Book $book
      * @Route("/edit/book/{id}", name="edit_book",requirements={"id":"\d+"})
@@ -153,7 +165,7 @@ class IndexController extends AbstractController {
 
     /**
      * Add a new epoch into database
-     * @Route("/add-epoch", name="epoch_add")
+     * @Route("/add-epoch", name="add_epoch")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -177,32 +189,19 @@ class IndexController extends AbstractController {
     }
 
     /**
-     * @Route("/epochs", name="epoch_show")
+     * @Route("/epochs", name="show_epochs")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showEpoch() {
+    public function showEpochs() {
         $repository = $this->getDoctrine()->getRepository(Epoch::class);
         $epochs = $repository->findAll();
         return $this->render('listEpochs.html.twig', [
             'epochs' => $epochs
         ]);
     }
-
-    /**
-     * @Route("/regions", name="region_show")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function showRegion() {
-        $repository = $this->getDoctrine()->getRepository(GeographicalArea::class);
-        $regions = $repository->findAll();
-        return $this->render('listRegions.html.twig', [
-            'regions' => $regions
-        ]);
-    }
-
     /**
      * Add a new Geographical Area into database
-     * @Route("/add-geographical-area", name="geographical_add")
+     * @Route("/add-geographical-area", name="add_region")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -223,5 +222,17 @@ class IndexController extends AbstractController {
         }
 
         return $returnRender;
+    }
+
+    /**
+     * @Route("/regions", name="regions_show")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showRegions() {
+        $repository = $this->getDoctrine()->getRepository(GeographicalArea::class);
+        $regions = $repository->findAll();
+        return $this->render('listRegions.html.twig', [
+            'regions' => $regions
+        ]);
     }
 }

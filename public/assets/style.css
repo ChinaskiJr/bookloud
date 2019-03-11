@@ -62,7 +62,6 @@
 /* Media queries */
 @media screen and (min-width: 600px){
     .block-home-booklouds {
-        border-right: white solid 1px;
         padding : 0 25px 0 25px;
     }
     .block-home-books {
