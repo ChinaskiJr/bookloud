@@ -13,6 +13,8 @@
         {{ form_row(form.isbn) }}
         {{ form_row(form.title) }}
         {{ form_row(form.editor) }}
+        {{ form_row(form.epoch) }}
+        {{ form_row(form.geographicalArea) }}
 
         <ul class="tags" data-prototype="{{ form_widget(form.keywords.vars.prototype)|e('html_attr') }}">
             {{ form_label(form.keywords, 'Keywords') }}

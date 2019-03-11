@@ -8,7 +8,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Epoch;
+use App\Entity\GeographicalArea;
 use App\Entity\Keyword;
+use App\Form\EpochType;
+use App\Form\GeographicalAreaType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,7 +48,7 @@ class IndexController extends AbstractController {
     public function add(Request $request) {
         $book = new Book();
 
-         return self::editBook($request, $book);
+        return self::editBook($request, $book);
     }
 
     /**
@@ -82,6 +87,10 @@ class IndexController extends AbstractController {
                 $book->addKeyword(new Keyword());
             }
         }
+        $repository = $this->getDoctrine()->getRepository(Epoch::class);
+        $epochs = $repository->findAll();
+        $epochs = new ArrayCollection($epochs);
+        $book->setEpoch($epochs);
 
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
@@ -140,5 +149,54 @@ class IndexController extends AbstractController {
         $em->remove($keyword);
         $em->flush();
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * Add a new epoch into database
+     * @Route("/add-epoch", name="epoch_add")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addEpoch(Request $request) {
+        $epoch = new Epoch();
+        $form = $this->createForm(EpochType::class, $epoch);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($epoch);
+            $em->flush();
+            $returnRender = $this->redirectToRoute('home');
+        } else {
+            $returnRender = $this->render('addEpoch.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        }
+
+        return $returnRender;
+    }
+    /**
+     * Add a new Geographical Area into database
+     * @Route("/add-geographical-area", name="geographical_add")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addGeographicalArea(Request $request) {
+        $geographicalArea = new GeographicalArea();
+        $form = $this->createForm(GeographicalAreaType::class, $geographicalArea);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($geographicalArea);
+            $em->flush();
+            $returnRender = $this->redirectToRoute('home');
+        } else {
+            $returnRender = $this->render('addGeographicalArea.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        }
+
+        return $returnRender;
     }
 }

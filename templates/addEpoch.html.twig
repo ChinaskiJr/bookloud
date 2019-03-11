@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="block-add-form">
+        <h2 class="h2-add">New Epoch</h2>
+        {{ form_start(form, {
+            'attr': {
+                'novalidate': 'novalidate',
+                'class': 'col-lg-5 mx-auto'
+            }
+        })
+        }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -10,6 +10,7 @@ namespace App\Form;
 
 
 use App\Entity\Book;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,11 +19,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BookType extends AbstractType {
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('isbn', TextType::class)
             ->add('title', TextType::class)
             ->add('editor', TextType::class)
+            ->add('epoch', EntityType::class,[
+                'class' => 'App\Entity\epoch',
+                'choice_label' => 'epoch'
+            ])
+            ->add('geographicalArea', EntityType::class, [
+                'class' => 'App\Entity\GeographicalArea',
+                'choice_label' => 'geographicalArea'
+            ])
             ->add('keywords', CollectionType::class, [
                 'entry_type' => KeywordType::class,
                 'label' => false,

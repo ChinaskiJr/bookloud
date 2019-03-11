@@ -51,10 +51,22 @@ class Book {
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Keyword", mappedBy="books", cascade={"persist"})
-     * @ORM\JoinTable(name="bookloud_book_keyword"))
+     * @ORM\JoinTable(name="bookloud_book_keyword")
      * @Assert\Valid
      */
     private $keywords;
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToOne(targetEntity="App\Entity\Epoch", inversedBy="books", cascade={"persist"})
+     * @ORM\JoinTable(name="bookloud_book_epoch")
+     */
+    private $epoch;
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToOne(targetEntity="App\Entity\GeographicalArea", inversedBy="books", cascade={"persist"})
+     * @ORM\JoinTable(name="bookloud_book_geographicalArea")
+     */
+    private $geographicalArea;
 
     /**
      * Book constructor.
@@ -62,6 +74,8 @@ class Book {
     public function __construct()
     {
         $this->keywords = new ArrayCollection();
+        $this->epoch = new ArrayCollection();
+        $this->geographicalArea = new ArrayCollection();
     }
 
     /**
@@ -127,7 +141,7 @@ class Book {
      * @param Keyword $keyword
      * @return Book
      */
-    public function addKeyword(Keyword $keyword): self
+    public function addKeyword(Keyword $keyword)
     {
         if (!$this->keywords->contains($keyword)) {
             $this->keywords[] = $keyword;
@@ -141,7 +155,7 @@ class Book {
      * @param Keyword $keyword
      * @return Book
      */
-    public function removeKeyword(Keyword $keyword): self
+    public function removeKeyword(Keyword $keyword)
     {
         if ($this->keywords->contains($keyword)) {
             $this->keywords->removeElement($keyword);
@@ -149,5 +163,32 @@ class Book {
         }
 
         return $this;
+    }
+    /**
+     * @return ArrayCollection
+     */
+    public function getEpoch() {
+        return $this->epoch;
+    }
+
+    /**
+     * @param ArrayCollection $epoch
+     */
+    public function setEpoch(ArrayCollection $epoch) {
+        $this->epoch = $epoch;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGeographicalArea() {
+        return $this->geographicalArea;
+    }
+
+    /**
+     * @param ArrayCollection $geographicalArea
+     */
+    public function setGeographicalArea(ArrayCollection $geographicalArea): void {
+        $this->geographicalArea = $geographicalArea;
     }
 }
