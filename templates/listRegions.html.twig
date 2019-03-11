@@ -3,6 +3,7 @@
 {% block content %}
     <div class="block-home-booklouds">
         <h2 class="h2-home-titles">Regions</h2>
+        <h2 class="h2-home-newBook"><a href="/add-epoch" class="links">->&nbsp;New&nbsp;Region&nbsp;<-</a></h2>
         <div class="grid-booklouds">
             {% for region in regions %}
                 <p class="text-center"><a href="/regions/{{ region.id }}" class="links">{{ region.geographicalArea }}</a></p>

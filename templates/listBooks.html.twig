@@ -3,6 +3,7 @@
 {% block content %}
     <div class="block-home-books">
         <h2 class="h2-home-titles">Books</h2>
+        <h2 class="h2-home-newBook"><a href="/add" class="links">->&nbsp;New&nbsp;book&nbsp;<-</a></h2>
         <div class="grid-books">
             {% for book in books %}
                 <a href="/book/{{ book.id }}" class=links>{{ book.title }} ({{ book.editor }})</a>

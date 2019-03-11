@@ -201,7 +201,7 @@ class IndexController extends AbstractController {
     }
     /**
      * Add a new Geographical Area into database
-     * @Route("/add-geographical-area", name="add_region")
+     * @Route("/add-region", name="add_region")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
