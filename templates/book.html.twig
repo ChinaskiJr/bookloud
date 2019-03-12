@@ -3,6 +3,7 @@
 {% block content %}
     <div class="block-showBook">
         <h2 class="h2-add">{{ book.title }}</h2>
+        <h3><a class="links" href="/epoch/{{ book.epoch.id }}">{{ book.epoch.epoch }}</a> - <a class="links" href="/region/{{ book.geographicalArea.id }}">{{ book.geographicalArea.geographicalArea }}</a></h3>
         <ul class="ul-add">
             {% for keyword in book.keywords %}
                 <li><a href="/bookloud/{{ keyword.id }}" class="links">{{ keyword.name }}</a></li>

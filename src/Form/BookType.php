@@ -27,13 +27,15 @@ class BookType extends AbstractType {
             ->add('isbn', TextType::class)
             ->add('title', TextType::class)
             ->add('editor', TextType::class)
-            ->add('epoch', EntityType::class, [
+            ->add('epoch', EntityType::class,[
                 'class' => Epoch::class,
-                'choice_label' => 'epoch'
+                'choice_label' => 'epoch',
+                'choice_value' => 'epoch'
             ])
             ->add('geographicalArea', EntityType::class, [
                 'class' => GeographicalArea::class,
-                'choice_label' => 'geographicalArea'
+                'choice_label' => 'geographicalArea',
+                'choice_value' => 'geographicalArea'
             ])
             ->add('keywords', CollectionType::class, [
                 'entry_type' => KeywordType::class,

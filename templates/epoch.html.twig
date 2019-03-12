@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="block-showBookloud">
+        <h2 class="h2-add">Epoch : {{ epoch.epoch }}</h2>
+        <ul class="ul-add">
+            {% for book in epoch.books %}
+                <li class="text-center"><a href="/book/{{ book.id }}" class=links>{{ book.editor }} - {{ book.title }} - {{ book.isbn }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

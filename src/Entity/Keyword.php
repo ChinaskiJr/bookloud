@@ -33,7 +33,7 @@ class Keyword {
     private $name;
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="App\Entity\Book", inversedBy="keywords")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Book", inversedBy="keywords", cascade={"persist"})
      * @ORM\JoinTable(name="bookloud_book_keyword"))
      */
     private $books;

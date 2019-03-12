@@ -46,6 +46,8 @@ class IndexController extends AbstractController {
      */
     public function add(Request $request) {
         $book = new Book();
+        $book->setEpoch(new Epoch());
+        $book->setGeographicalArea(new GeographicalArea());
 
         return self::editBook($request, $book);
     }
@@ -142,6 +144,16 @@ class IndexController extends AbstractController {
             }
         }
 
+        $bookRegion = $book->getGeographicalArea();
+        if (count($bookRegion->getBooks()) <= 1) {
+            $em->remove($bookRegion);
+        }
+
+        $bookEpoch = $book->getEpoch();
+        if (count($bookEpoch->getBooks()) <= 1) {
+            $em->remove($bookEpoch);
+        }
+
         $em->flush();
         return $this->redirectToRoute('home');
     }
@@ -194,6 +206,30 @@ class IndexController extends AbstractController {
             'epochs' => $epochs
         ]);
     }
+
+    /**
+     * @param Epoch $epoch
+     * @Route("/epoch/{id}", name="show_epoch", requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showEpoch(Epoch $epoch) {
+        return $this->render('epoch.html.twig', array(
+            'epoch' => $epoch,
+        ));
+    }
+
+    /**
+     * @param Epoch $epoch
+     * @Route("/delete/epoch/{id}", name="delete_epoch",requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteEpoch(Epoch $epoch) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($epoch);
+        $em->flush();
+        return $this->redirectToRoute('home');
+    }
+
     /**
      * Add a new Geographical Area into database
      * @Route("/add-region", name="add_region")
@@ -220,7 +256,7 @@ class IndexController extends AbstractController {
     }
 
     /**
-     * @Route("/regions", name="regions_show")
+     * @Route("/regions", name="show_regions")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showRegions() {
@@ -229,5 +265,29 @@ class IndexController extends AbstractController {
         return $this->render('listRegions.html.twig', [
             'regions' => $regions
         ]);
+    }
+
+
+    /**
+     * @param GeographicalArea $region
+     * @Route("/region/{id}", name="show_region", requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showRegion(GeographicalArea $region) {
+        return $this->render('region.html.twig', array(
+            'region' => $region,
+        ));
+    }
+
+    /**
+     * @param GeographicalArea $region
+     * @Route("/delete/region/{id}", name="delete_region",requirements={"id":"\d+"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteRegion(GeographicalArea $region) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($region);
+        $em->flush();
+        return $this->redirectToRoute('home');
     }
 }

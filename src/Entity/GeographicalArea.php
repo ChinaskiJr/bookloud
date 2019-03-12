@@ -31,7 +31,7 @@ class GeographicalArea {
     private $geographicalArea;
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="geographicalArea")
+     * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="geographicalArea", cascade={"persist"})
      * @ORM\JoinTable(name="bookloud_book_geographicalArea"))
      */
     private $books;

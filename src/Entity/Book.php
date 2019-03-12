@@ -179,7 +179,7 @@ class Book {
     }
 
     /**
-     * @return ArrayCollection
+     * @return GeographicalArea
      */
     public function getGeographicalArea() {
         return $this->geographicalArea;
