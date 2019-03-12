@@ -28,7 +28,6 @@ class Keyword {
     /**
      * @var string
      * @ORM\Column(type="string", unique=true)
-     * @Assert\NotBlank(message="Un mot-clé vide donne un Bookloud vide de sens")
      */
     private $name;
     /**

@@ -6,7 +6,7 @@
         <h2 class="h2-home-newBook"><a href="/add" class="links">->&nbsp;New&nbsp;book&nbsp;<-</a></h2>
         <div class="grid-books">
             {% for book in books %}
-                <a href="/book/{{ book.id }}" class=links>{{ book.title }} ({{ book.editor }})</a>
+                <a href="/book/{{ book.id }}" class=links>{{ book.title }} - <span class="font-italic">{{ book.author }}</span> ({{ book.editor }})</a>
             {% endfor %}
         </div>
     </div>

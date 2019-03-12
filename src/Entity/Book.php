@@ -39,7 +39,7 @@ class Book {
     /**
      * @var string
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message = "Le titre, c'est obligatoire.")
+     * @Assert\NotBlank(message = "Le titre, c'est obligatoire")
      */
     private $title;
     /**
@@ -48,6 +48,12 @@ class Book {
      * @Assert\NotBlank(message = "L'éditeur c'est obligatoire")
      */
     private $editor;
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message = "L'auteur c'est obligatoire")
+     */
+    private $author;
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Keyword", mappedBy="books", cascade={"persist"})
@@ -128,6 +134,20 @@ class Book {
      */
     public function setEditor($editor) {
         $this->editor = $editor;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor() {
+        return $this->author;
+    }
+
+    /**
+     * @param string $author
+     */
+    public function setAuthor($author) {
+        $this->author = $author;
     }
 
     /**

@@ -5,10 +5,10 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-3 text-center ">
-                    <a class="links" href="/add-epoch">New Epoch</a>
+                    <a class="links" href="/add-epoch" target="_blank">New Epoch</a>
                 </div>
                 <div class="col-3 text-center ml-auto">
-                    <a class="links" href="/add-region">New Region</a>
+                    <a class="links" href="/add-region" target="_blank">New Region</a>
                 </div>
             </div>
         </div>
@@ -22,6 +22,7 @@
         }}
         {{ form_row(form.isbn) }}
         {{ form_row(form.title) }}
+        {{ form_row(form.author) }}
         {{ form_row(form.editor) }}
         {{ form_row(form.epoch) }}
         {{ form_row(form.geographicalArea) }}

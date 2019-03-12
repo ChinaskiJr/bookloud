@@ -27,6 +27,7 @@ class BookType extends AbstractType {
             ->add('isbn', TextType::class)
             ->add('title', TextType::class)
             ->add('editor', TextType::class)
+            ->add('author', TextType::class)
             ->add('epoch', EntityType::class,[
                 'class' => Epoch::class,
                 'choice_label' => 'epoch',
