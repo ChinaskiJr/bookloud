@@ -10,6 +10,8 @@ namespace App\Form;
 
 
 use App\Entity\Book;
+use App\Entity\Epoch;
+use App\Entity\GeographicalArea;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -25,12 +27,12 @@ class BookType extends AbstractType {
             ->add('isbn', TextType::class)
             ->add('title', TextType::class)
             ->add('editor', TextType::class)
-            ->add('epoch', EntityType::class,[
-                'class' => 'App\Entity\epoch',
+            ->add('epoch', EntityType::class, [
+                'class' => Epoch::class,
                 'choice_label' => 'epoch'
             ])
             ->add('geographicalArea', EntityType::class, [
-                'class' => 'App\Entity\GeographicalArea',
+                'class' => GeographicalArea::class,
                 'choice_label' => 'geographicalArea'
             ])
             ->add('keywords', CollectionType::class, [

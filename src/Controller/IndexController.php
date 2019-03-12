@@ -13,7 +13,6 @@ use App\Entity\GeographicalArea;
 use App\Entity\Keyword;
 use App\Form\EpochType;
 use App\Form\GeographicalAreaType;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,10 +98,6 @@ class IndexController extends AbstractController {
                 $book->addKeyword(new Keyword());
             }
         }
-        $repository = $this->getDoctrine()->getRepository(Epoch::class);
-        $epochs = $repository->findAll();
-        $epochs = new ArrayCollection($epochs);
-        $book->setEpoch($epochs);
 
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);

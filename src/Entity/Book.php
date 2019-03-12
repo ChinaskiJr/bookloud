@@ -56,7 +56,7 @@ class Book {
      */
     private $keywords;
     /**
-     * @var ArrayCollection
+     * @var Epoch
      * @ORM\ManyToOne(targetEntity="App\Entity\Epoch", inversedBy="books", cascade={"persist"})
      * @ORM\JoinTable(name="bookloud_book_epoch")
      */
@@ -74,8 +74,8 @@ class Book {
     public function __construct()
     {
         $this->keywords = new ArrayCollection();
-        $this->epoch = new ArrayCollection();
-        $this->geographicalArea = new ArrayCollection();
+        $this->epoch = new Epoch();
+        $this->geographicalArea = new GeographicalArea();
     }
 
     /**
@@ -165,16 +165,16 @@ class Book {
         return $this;
     }
     /**
-     * @return ArrayCollection
+     * @return Epoch
      */
     public function getEpoch() {
         return $this->epoch;
     }
 
     /**
-     * @param ArrayCollection $epoch
+     * @param Epoch $epoch
      */
-    public function setEpoch(ArrayCollection $epoch) {
+    public function setEpoch(Epoch $epoch) {
         $this->epoch = $epoch;
     }
 
@@ -186,9 +186,9 @@ class Book {
     }
 
     /**
-     * @param ArrayCollection $geographicalArea
+     * @param GeographicalArea $geographicalArea
      */
-    public function setGeographicalArea(ArrayCollection $geographicalArea): void {
+    public function setGeographicalArea(GeographicalArea $geographicalArea) {
         $this->geographicalArea = $geographicalArea;
     }
 }
