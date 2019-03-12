@@ -290,4 +290,53 @@ class IndexController extends AbstractController {
         $em->flush();
         return $this->redirectToRoute('home');
     }
+
+    /**
+     * @Route("/search", name="research")
+     */
+    public function search(Request $request) {
+        $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
+        $epochs = $this->getDoctrine()->getRepository(Epoch::class)->findAll();
+        $regions = $this->getDoctrine()->getRepository(GeographicalArea::class)->findAll();
+        $booklouds = $this->getDoctrine()->getRepository(Keyword::class)->findAll();
+
+        $query = $request->query->get('q');
+        $booksResults = [];
+        $epochsResults = [];
+        $regionsResults = [];
+        $bookloudsResults = [];
+
+        foreach($books as $book) {
+            if (stripos($book->getTitle(), $query) !== false) {
+                $booksResults[] = $book;
+            }
+        }
+        foreach($epochs as $epoch) {
+            if (stripos($epoch->getEpoch(), $query) !== false) {
+                $epochsResults[] = $epoch;
+            }
+        }
+        foreach($regions as $region) {
+            if (stripos($region->getGeographicalArea(), $query) !== false) {
+                $regionsResults[] = $region;
+            }
+        }
+        foreach ($booklouds as $bookloud) {
+            if (stripos($bookloud->getName(), $query) !== false) {
+                $bookloudsResults[] = $bookloud;
+            }
+        }
+
+        $results = array(
+            'booksResults' => $booksResults,
+            'epochsResults' => $epochsResults,
+            'regionsResults' => $regionsResults,
+            'bookloudsResults' => $bookloudsResults
+        );
+
+        return $this->render('searchResults.html.twig', [
+            'results' => $results
+        ]);
+
+    }
 }

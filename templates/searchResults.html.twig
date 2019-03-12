@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="block-home-booklouds text-center">
+        <h2 class="h2-home-titles">Search Results</h2>
+        <h3>Booklouds</h3>
+        {% if results.bookloudsResults is not empty %}
+            {% for bookloudResult in results.bookloudsResults %}
+                <p><a href="/bookloud/{{ bookloudResult.id }}">{{ bookloudResult.name }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p class="font-italic">No booklouds match...</p>
+        {% endif %}
+        <h3>Books</h3>
+        {% if results.booksResults is not empty %}
+            {% for bookResult in results.booksResults %}
+                <p><a href="/book/{{ bookResult.id }}">{{ bookResult.title }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p class="font-italic">No books match...</p>
+        {% endif %}
+        <h3>Epochs</h3>
+        {% if results.epochsResults is not empty %}
+            {% for epochResult in results.epochsResults %}
+                <p><a href="/epoch/{{ epochResult.id }}">{{ epochResult.epoch }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p class="font-italic">No epochs match...</p>
+        {% endif %}
+        <h3>Regions</h3>
+        {% if results.regionsResults is not empty %}
+            {% for regionResult in results.regionsResults %}
+                <p><a href="/region/{{ regionResult.id }}">{{ regionResult.geographicalArea }}</a></p>
+            {% endfor %}
+        {% else %}
+            <p class="font-italic">No regions match...</p>
+        {% endif %}
+    </div>
+{% endblock %}
