@@ -13,6 +13,7 @@ use App\Entity\GeographicalArea;
 use App\Entity\Keyword;
 use App\Form\EpochType;
 use App\Form\GeographicalAreaType;
+use lotsofcode\TagCloud\TagCloud;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,17 +24,42 @@ class IndexController extends AbstractController {
     /**
      * Welcoming Page
      *
+     * Tag Cloud powered by lotsofcode. For any informations see
+     * https://packagist.org/packages/lotsofcode/tag-cloud
      * @Route("/", name="home")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function home() {
         $repository = $this->getDoctrine()->getRepository(Keyword::class);
         $keywords = $repository->findAll();
-        $repository = $this->getDoctrine()->getRepository(Book::class);
-        $books = $repository->findAll();
+
+        /**
+         * For any informations :
+         * https://packagist.org/packages/lotsofcode/tag-cloud
+         */
+        $cloud = new TagCloud();
+        $cloud->setMinLength(3);
+        $cloud->setOption('transliterate', false);
+        foreach ($keywords as $keyword) {
+            // More the keyword has books, more it should be big in the cloud
+            for ($i = 0 ; $i <= count($keyword->getBooks()) ; $i++) {
+                $cloud->addTag(array(
+                        'tag' => $keyword->getName(),
+                        'url' => $keyword->getId(),
+                    )
+                );
+            }
+        }
+        $baseUrl = '/bookloud';
+        $cloud->setHtmlizeTagFunction(function($tag, $size) use ($baseUrl) {
+            $link = '<a style="color: inherit" href="'.$baseUrl.'/'.$tag['url'].'">'.$tag['tag'].'</a>';
+            return "<span class='tag size{$size}'>{$link}</span> ";
+        });
+        $cloudWord = $cloud->render();
+
         return $this->render('home.html.twig', array(
             'keywords' => $keywords,
-            'books' => $books,
+            'cloudWord' => $cloudWord
         ));
     }
 
@@ -107,12 +133,15 @@ class IndexController extends AbstractController {
         if ($form->isSubmitted() && $form->isValid()) {
             // Check for existing keywords
             $repository = $this->getDoctrine()->getRepository(Keyword::class);
-
+            // Remove the new and set up the old one in order to have the same ID.
             foreach($book->getKeywords() as $newKeyword) {
                 $databaseKeyword = $repository->findOneBy(array('name' => $newKeyword->getName()));
                 if ($databaseKeyword) {
                     $book->removeKeyword($newKeyword);
                     $book->addKeyword($databaseKeyword);
+                }
+                if (empty($newKeyword->getName())) {
+                    $book->removeKeyword($newKeyword);
                 }
             }
             $em = $this->getDoctrine()->getManager();

@@ -7,13 +7,16 @@
             <div class="block-home-booklouds">
                 <h2 class="h2-home-titles">Booklouds</h2>
                 <div class="grid-booklouds">
+                    {#
                     {% for keyword in keywords %}
                         <p class="text-center"><a href="/bookloud/{{ keyword.id }}" class="links">{{ keyword.name }}</a></p>
                     {% endfor %}
+                    #}
+                    {{ cloudWord|raw }}
                 </div>
             </div>
         </div>
     {% else %}
-        <p>No books or booklouds to show for the moment...</p>
+        <p class="text-center">No books or booklouds to show for the moment...</p>
     {% endif %}
 {% endblock %}
