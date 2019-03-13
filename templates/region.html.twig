@@ -5,7 +5,7 @@
         <h2 class="h2-add">Region : {{ region.geographicalArea}}</h2>
         <ul class="ul-add">
             {% for book in region.books %}
-                <li class="text-center"><a href="/book/{{ book.id }}" class=links>{{ book.editor }} - {{ book.title }} - {{ book.isbn }}</a></li>
+                <li class="text-center"><a href="/book/{{ book.id }}" class=links>{{ book.editor }} - {{ book.title }} - <span class="font-italic">{{ book.author }}</span></a></li>
             {% endfor %}
         </ul>
     </div>
